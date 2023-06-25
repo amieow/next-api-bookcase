@@ -36,9 +36,6 @@ export const putHandler = ({harga_rata, kelas, jenis, harga_zona, book_name, kur
    if (kelas) {
       updatedData.kelas = kelas;
    }
-   if (jenis === 'paket' && harga_zona) {
-      updatedData.harga_zona = harga_zona;
-   }
    if (book_name) {
       updatedData.book_name = book_name;
    }

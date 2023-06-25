@@ -1,34 +1,95 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# NEXT API Bookcase 
 
-First, run the development server:
+#### Data type 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+| data | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `id` | `number` | **required** |
+| `jenis` | `'paket' or 'majalah' or 'fiksi' or 'unknown'` | **required** |
+| `harga_rata` | `number` | **required** |
+| `book_name` | `string` | Optional |
+| `kelas` | `number` | Optional |
+| `pelajaran` | `number` | Optional |
+| `harga_zona` | `array number` | Optional |
+| `kurikulum` | `"2004" or "2006" or "2013" or"Kurikulum Merdeka"` | Optional |
+
+
+
+## API Reference
+
+#### 
+
+#### Get book
+
+```http
+  GET /api
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| QueryParams | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `Jenis` | `string` | `filter by jenis` |
+| `min` | `string` | `(Required max) filter by average price` |
+| `max` | `string` | `(Required min) filter by average price` |
+| `kurikulum` | `string` | `filter by kurikulum` |
+| `pelajaran` | `string` | `filter by pelajaran` |
+| `show` | `number` | `showing a data max is 50 default 20` |
+| `length` | `boolean` | `showing all data length` |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### post book
+```http
+  POST /api
+```
+request body parameter
+| parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `jenis` | `'paket' or 'majalah' or 'fiksi' or 'unknown'` | **required** |
+| `harga_rata` | `number` | **required** |
+| `book_name` | `string` | Optional |
+| `kelas` | `number` | Optional |
+| `pelajaran` | `number` | Optional |
+| `harga_zona` | `array number` | Optional |
+| `kurikulum` | `"2004" or "2006" or "2013" or"Kurikulum Merdeka"` | Optional |
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Get item
 
-## Learn More
+```http
+  GET /api/${id}
+```
 
-To learn more about Next.js, take a look at the following resources:
+| parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `number` | **Required**.` Id of item to fetch` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### update book
+```http
+  PUT /api/${id}
+```
+request body parameter
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+| parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `number` | **Required**. Id of item to fetch |
+| `harga_rata` | `number` | `Optional` |
+| `book_name` | `string` | `Optional` |
+| `kelas` | `number` | `Optional` |
+| `pelajaran` | `number` | `Optional` |
+| `harga_zona` | `array number` | `Optional` |
+| `kurikulum` | `"2004" or "2006" or "2013" or"Kurikulum Merdeka"` | `Optional` |
 
-## Deploy on Vercel
+#### DELETE item
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```http
+  DELETE /api/${id}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `number` | **Required**.` Id of item to fetch` |
+
+
+
+## made by
+
+- [@amieow](https://www.github.com/amieow)
+

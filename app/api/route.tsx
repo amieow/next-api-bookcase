@@ -11,14 +11,23 @@ export async function GET(req : Request){
    const kelas = url.searchParams.get('kelas')
    const kurikulum = url.searchParams.get('kurikulum')
    const pelajaran = url.searchParams.get('pelajaran')
-   const show = Number(url.searchParams.get('show')) || 20
-   const length = Number(url.searchParams.get('length'))
+   const show = () => {
+      if((url.searchParams.get('show')) ){
+         if(Number(url.searchParams.get('show')) > 50){
+            return 50
+         }
+         return Number(url.searchParams.get('show'))
+      }
+      else{
+         return 20
+      }
+   }
+   const length = Boolean(url.searchParams.get('length'))
    if(length){
       return NextResponse.json({
          length : data.length
       },{status : 200})
    }
-   
    const modifyData = (jenis || (minimal && maximal) || kelas || kurikulum ) ? (data.filter((item) => {
          const jenisMatch = jenis ? item.jenis == jenis : true
          const average = minimal && maximal ? item.harga_rata >= Number(minimal) && item.harga_rata <= Number(maximal) : true
@@ -35,7 +44,7 @@ export async function GET(req : Request){
    }
    return NextResponse.json({
       count : modifyData.length,
-      data : {...modifyData.slice(0,show)}
+      data : {...modifyData.slice(0,show())}
    },{status: 200})
 }
 
@@ -123,20 +132,4 @@ export async function POST(req:Request) {
          }, { status: 201, statusText: 'Created' });
       }
    }
-}
-
-export async function PUT(req: Request) {
-   const requestData = await req.json();
-   const { id, harga_rata, kelas, jenis, harga_zona, book_name, kurikulum, pelajaran }: dataType = requestData;
-   if (!id) {
-      return NextResponse.json({
-         message: 'data yang dibutuhkan kurang',
-      }, { status: 400, statusText: 'Bad Request' });
-   }
-   const findIndex = data.findIndex(item => item.id === Number(id));
-   putHandler({harga_rata, kelas, jenis, harga_zona, book_name, kurikulum, pelajaran,id : Number(id) },findIndex)
-   return NextResponse.json({
-      message: 'data berhasil diubah',
-      data: { ...data[findIndex] },
-   }, { status: 201, statusText: 'Updated' });
 }
