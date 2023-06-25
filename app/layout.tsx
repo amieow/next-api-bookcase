@@ -18,7 +18,7 @@ export default function RootLayout({
       <head>
         <meta httpEquiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://www.google.com"></meta>
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={`min-h-screen flex bg-gray-700`}>{children}</body>
     </html>
   )
 }
